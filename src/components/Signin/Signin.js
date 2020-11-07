@@ -1,0 +1,14 @@
+import React from 'react'
+import { compose } from 'redux'
+import { withRouter } from 'react-router-dom'
+import { AuthHOC } from '../../HOC'
+
+const Signin = () => {
+    return (
+        <div>
+            
+        </div>
+    )
+}
+
+export default compose(withRouter, AuthHOC)(Signin)
