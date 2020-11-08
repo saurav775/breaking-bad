@@ -4,47 +4,33 @@ import { withRouter } from "react-router-dom";
 import { AuthHOC } from "../../HOC";
 import { handleValidation } from "../../helper";
 
-const Signup = (props) => {
-  const { handleInputChange, handleFocusOut } = props;
+const ResetPassword = (props) => {
+  const { handleInputChange, handleFocusOut, location } = props;
+
   const [inputFields, setInputFields] = useState({
-    email: "",
     password: "",
     confirm_password: "",
   });
   const [errors, setErrors] = useState({});
 
-  const register = () => {
-    const checkErrors = handleValidation(inputFields, "signup");
+  const resetPassword = () => {
+    const checkErrors = handleValidation(inputFields, "resetPassword");
     if (checkErrors) {
       setErrors(checkErrors);
     } else {
+      setErrors({});
       // Password match check
       if (inputFields["password"] !== inputFields["confirm_password"]) {
         setErrors({ confirm_password: "Password match error" });
       } else {
-        setErrors({});
-        // checking if user already exists
-        const users = JSON.parse(localStorage.getItem("users"));
-        let userExist = false
-        users.length > 0 && users.forEach((e) => {
-          if (e.email === inputFields.email) {
-            setErrors({ user_exist: "User exist... please login" });
-            userExist = true
-          }
+        // search for user
+        const users = JSON.parse(localStorage.getItem('users'))
+        users.forEach(e => {
+            if(e.email === location.state.email) {
+                e.password = inputFields.password
+            }
         });
-        // setting item in local storage
-        if(!userExist) {
-          localStorage.setItem(
-            "users",
-            JSON.stringify([
-              ...users,
-              {
-                email: inputFields.email,
-                password: inputFields.password,
-              },
-            ])
-          );
-        } 
+        localStorage.setItem('users', JSON.stringify(users))
       }
     }
   };
@@ -52,30 +38,11 @@ const Signup = (props) => {
   return (
     <div className="d-flex flex-column">
       <input
-        type="email"
-        className="form-control full-width mb-2"
-        value={inputFields.email}
-        onBlur={() =>
-          setErrors(handleFocusOut({ inputFields, fieldKey: "signup" }))
-        }
-        onChange={(e) =>
-          setInputFields({
-            ...handleInputChange({ key: "email", e, inputFields }),
-          })
-        }
-        placeholder="Email ID"
-      />
-      {errors.hasOwnProperty("email") && (
-        <span className="text-danger text-align-left mb-3">
-          {errors["email"]}
-        </span>
-      )}
-      <input
         type="password"
         className="form-control full-width mb-2"
         value={inputFields.password}
         onBlur={() =>
-          setErrors(handleFocusOut({ inputFields, fieldKey: "signup" }))
+          setErrors(handleFocusOut({ inputFields, fieldKey: "resetPassword" }))
         }
         onChange={(e) =>
           setInputFields({
@@ -94,7 +61,7 @@ const Signup = (props) => {
         className="form-control full-width"
         value={inputFields.confirm_password}
         onBlur={() =>
-          setErrors(handleFocusOut({ inputFields, fieldKey: "signup" }))
+          setErrors(handleFocusOut({ inputFields, fieldKey: "resetPassword" }))
         }
         onChange={(e) =>
           setInputFields({
@@ -108,20 +75,15 @@ const Signup = (props) => {
           {errors["confirm_password"]}
         </span>
       )}
-      {errors.hasOwnProperty("user_exist") && (
-        <span className="text-danger text-align-left mt-2">
-          {errors["user_exist"]}
-        </span>
-      )}
       <button
         type="button"
         className="btn btn-primary full-width mt-4"
-        onClick={register}
+        onClick={resetPassword}
       >
-        Register
+        Reset
       </button>
     </div>
   );
 };
 
-export default compose(withRouter, AuthHOC)(Signup);
+export default compose(withRouter, AuthHOC)(ResetPassword);

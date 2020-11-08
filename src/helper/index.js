@@ -6,7 +6,7 @@ export const validateEmail = (email) => {
 export const handleValidation = (fields, formType) => {
   const errors = {};
   // email vaildation
-  if (!fields["email"]) {
+  if (formType !== "code" && formType !== 'resetPassword' && !fields["email"]) {
     errors["email"] = "Email ID is required";
   }
   if (fields["email"] && !validateEmail(fields["email"])) {
@@ -14,10 +14,15 @@ export const handleValidation = (fields, formType) => {
   }
 
   // password validation
-  if (formType !== "forgotPassword" && !fields["password"]) {
+  if (
+    formType !== "code" &&
+    formType !== "forgotPassword" &&
+    !fields["password"]
+  ) {
     errors["password"] = "Password is required";
   }
   if (
+    formType !== "code" &&
     formType !== "forgotPassword" &&
     fields["password"] &&
     !(fields["password"].length >= 8 && fields["password"].length <= 16)
@@ -27,8 +32,17 @@ export const handleValidation = (fields, formType) => {
   }
 
   // confirm password validation
-  if (formType === "signup" && !fields["confirm_password"]) {
+  if (
+    formType !== "code" &&
+    (formType === "signup" || formType === 'resetPassword') &&
+    !fields["confirm_password"]
+  ) {
     errors["confirm_password"] = "Confirm your password";
+  }
+
+  // verification code validation
+  if (formType === "code" && !fields["code"]) {
+    errors["code"] = "Code is required";
   }
 
   return Object.entries(errors).length > 0 ? errors : false;

@@ -1,10 +1,10 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { authPage } from "../../static";
 import { handleValidation } from "../../helper";
 import "./AuthHOC.css";
 
 const AuthHOC = (BaseComponent) => (props) => {
-  const { title, id, history } = props;
+  const { title, id, history, location } = props;
 
   // handling input values
   const handleInputChange = ({ key, e, inputFields }) => {
@@ -71,6 +71,8 @@ const AuthHOC = (BaseComponent) => (props) => {
                   handleFocusOut={({ inputFields, fieldKey }) =>
                     handleFocusOut({ inputFields, fieldKey })
                   }
+                  history={history}
+                  location={location}
                 />
                 {id === "signin" && (
                   <div
@@ -83,13 +85,15 @@ const AuthHOC = (BaseComponent) => (props) => {
                   </div>
                 )}
               </div>
-              <div
-                className="text-center cursor-pointer mt-5"
-                onClick={() => handleLinkClick({ clicked_from: "signup" })}
-              >
-                {id === "signup" ? "Signin here" : "Create your account"}
-                <i className="ml-2 fa fa-arrow-right"></i>
-              </div>
+              {(id !== "verifyCode" && id !== "resetPassword") ? (
+                <div
+                  className="text-center cursor-pointer mt-5"
+                  onClick={() => handleLinkClick({ clicked_from: "signup" })}
+                >
+                  {id === "signup" ? "Signin here" : "Create your account"}
+                  <i className="ml-2 fa fa-arrow-right"></i>
+                </div>
+              ) : (<div></div>)}
             </div>
           </div>
         </div>
