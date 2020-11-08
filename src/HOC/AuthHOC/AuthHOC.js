@@ -1,6 +1,5 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { authPage } from "../../static";
-import { handleValidation } from "../../helper";
 import "./AuthHOC.css";
 
 const AuthHOC = (BaseComponent) => (props) => {
@@ -11,16 +10,6 @@ const AuthHOC = (BaseComponent) => (props) => {
     const fields = inputFields;
     fields[key] = e.target.value;
     return fields;
-  };
-
-  // // on blur hadling validation
-  const handleFocusOut = ({ inputFields, fieldKey }) => {
-    const checkErrors = handleValidation(inputFields, fieldKey);
-    if (checkErrors) {
-      return checkErrors;
-    } else {
-      return {};
-    }
   };
 
   // Redirect to Signin/Signup/ForgotPassword Page
@@ -67,9 +56,6 @@ const AuthHOC = (BaseComponent) => (props) => {
                 <BaseComponent
                   handleInputChange={({ key, e, inputFields }) =>
                     handleInputChange({ key, e, inputFields })
-                  }
-                  handleFocusOut={({ inputFields, fieldKey }) =>
-                    handleFocusOut({ inputFields, fieldKey })
                   }
                   history={history}
                   location={location}

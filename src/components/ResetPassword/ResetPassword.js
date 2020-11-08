@@ -5,7 +5,7 @@ import { AuthHOC } from "../../HOC";
 import { handleValidation } from "../../helper";
 
 const ResetPassword = (props) => {
-  const { handleInputChange, handleFocusOut, location } = props;
+  const { handleInputChange, location } = props;
 
   const [inputFields, setInputFields] = useState({
     password: "",
@@ -41,9 +41,6 @@ const ResetPassword = (props) => {
         type="password"
         className="form-control full-width mb-2"
         value={inputFields.password}
-        onBlur={() =>
-          setErrors(handleFocusOut({ inputFields, fieldKey: "resetPassword" }))
-        }
         onChange={(e) =>
           setInputFields({
             ...handleInputChange({ key: "password", e, inputFields }),
@@ -60,9 +57,6 @@ const ResetPassword = (props) => {
         type="password"
         className="form-control full-width"
         value={inputFields.confirm_password}
-        onBlur={() =>
-          setErrors(handleFocusOut({ inputFields, fieldKey: "resetPassword" }))
-        }
         onChange={(e) =>
           setInputFields({
             ...handleInputChange({ key: "confirm_password", e, inputFields }),

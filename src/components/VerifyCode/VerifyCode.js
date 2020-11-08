@@ -5,7 +5,7 @@ import { AuthHOC } from "../../HOC";
 import { handleValidation } from "../../helper";
 
 const VerifyCode = (props) => {
-  const { handleInputChange, handleFocusOut, history, location } = props;
+  const { handleInputChange, history, location } = props;
   const [inputFields, setInputFields] = useState({ code: "" });
   const [errors, setErrors] = useState({});
 
@@ -40,9 +40,6 @@ const VerifyCode = (props) => {
           setInputFields({
             ...handleInputChange({ key: "code", e, inputFields }),
           })
-        }
-        onBlur={() =>
-          setErrors(handleFocusOut({ inputFields, fieldKey: "code" }))
         }
         placeholder="Enter Code"
       />

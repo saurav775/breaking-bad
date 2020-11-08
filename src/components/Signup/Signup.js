@@ -5,7 +5,7 @@ import { AuthHOC } from "../../HOC";
 import { handleValidation } from "../../helper";
 
 const Signup = (props) => {
-  const { handleInputChange, handleFocusOut } = props;
+  const { handleInputChange } = props;
   const [inputFields, setInputFields] = useState({
     email: "",
     password: "",
@@ -55,9 +55,6 @@ const Signup = (props) => {
         type="email"
         className="form-control full-width mb-2"
         value={inputFields.email}
-        onBlur={() =>
-          setErrors(handleFocusOut({ inputFields, fieldKey: "signup" }))
-        }
         onChange={(e) =>
           setInputFields({
             ...handleInputChange({ key: "email", e, inputFields }),
@@ -74,9 +71,6 @@ const Signup = (props) => {
         type="password"
         className="form-control full-width mb-2"
         value={inputFields.password}
-        onBlur={() =>
-          setErrors(handleFocusOut({ inputFields, fieldKey: "signup" }))
-        }
         onChange={(e) =>
           setInputFields({
             ...handleInputChange({ key: "password", e, inputFields }),
@@ -93,9 +87,6 @@ const Signup = (props) => {
         type="password"
         className="form-control full-width"
         value={inputFields.confirm_password}
-        onBlur={() =>
-          setErrors(handleFocusOut({ inputFields, fieldKey: "signup" }))
-        }
         onChange={(e) =>
           setInputFields({
             ...handleInputChange({ key: "confirm_password", e, inputFields }),

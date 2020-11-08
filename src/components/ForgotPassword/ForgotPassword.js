@@ -7,7 +7,7 @@ import { AuthHOC } from "../../HOC";
 import { handleValidation } from "../../helper";
 
 const ForgotPassword = (props) => {
-  const { handleInputChange, handleFocusOut, history } = props;
+  const { handleInputChange, history } = props;
 
   const [inputFields, setInputFields] = useState({ email: "" });
   const [errors, setErrors] = useState({});
@@ -79,9 +79,6 @@ const ForgotPassword = (props) => {
           setInputFields({
             ...handleInputChange({ key: "email", e, inputFields }),
           })
-        }
-        onBlur={() =>
-          setErrors(handleFocusOut({ inputFields, fieldKey: "forgotPassword" }))
         }
         placeholder="Email ID"
       />
