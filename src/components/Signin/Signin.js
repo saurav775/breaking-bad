@@ -16,6 +16,20 @@ const Signin = (props) => {
       setErrors(checkErrors);
     } else {
       setErrors({});
+      const users = JSON.parse(localStorage.getItem("users"));
+      let loginSuccess = false;
+      users.forEach((e) => {
+        // checking for user in local storage
+        if (
+          e.email === inputFields.email &&
+          e.password === inputFields.password
+        ) {
+          loginSuccess = true;
+        }
+      });
+      if (!loginSuccess) {
+        setErrors({ login_fail: "Email or password is incorrect" });
+      }
     }
   };
 
@@ -29,7 +43,9 @@ const Signin = (props) => {
           setErrors(handleFocusOut({ inputFields, fieldKey: "signin" }))
         }
         onChange={(e) =>
-          setInputFields({ ...handleInputChange({ key: "email", e, inputFields }) })
+          setInputFields({
+            ...handleInputChange({ key: "email", e, inputFields }),
+          })
         }
         placeholder="Email ID"
       />
@@ -46,13 +62,20 @@ const Signin = (props) => {
           setErrors(handleFocusOut({ inputFields, fieldKey: "signin" }))
         }
         onChange={(e) =>
-          setInputFields({ ...handleInputChange({ key: "password", e, inputFields }) })
+          setInputFields({
+            ...handleInputChange({ key: "password", e, inputFields }),
+          })
         }
         placeholder="Password"
       />
       {errors.hasOwnProperty("password") && (
         <span className="text-danger text-align-left my-2">
           {errors["password"]}
+        </span>
+      )}
+      {errors.hasOwnProperty("login_fail") && (
+        <span className="text-danger text-align-left my-2">
+          {errors["login_fail"]}
         </span>
       )}
       <button

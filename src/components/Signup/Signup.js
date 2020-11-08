@@ -23,6 +23,28 @@ const Signup = (props) => {
         setErrors({ confirm_password: "Password match error" });
       } else {
         setErrors({});
+        // checking if user already exists
+        const users = JSON.parse(localStorage.getItem("users"));
+        let userExist = false
+        users.length > 0 && users.forEach((e) => {
+          if (e.email === inputFields.email) {
+            setErrors({ user_exist: "User exist... please login" });
+            userExist = true
+          }
+        });
+        // setting item in local storage
+        if(!userExist) {
+          localStorage.setItem(
+            "users",
+            JSON.stringify([
+              ...users,
+              {
+                email: inputFields.email,
+                password: inputFields.password,
+              },
+            ])
+          );
+        } 
       }
     }
   };
@@ -84,6 +106,11 @@ const Signup = (props) => {
       {errors.hasOwnProperty("confirm_password") && (
         <span className="text-danger text-align-left mt-2">
           {errors["confirm_password"]}
+        </span>
+      )}
+      {errors.hasOwnProperty("user_exist") && (
+        <span className="text-danger text-align-left mt-2">
+          {errors["user_exist"]}
         </span>
       )}
       <button
