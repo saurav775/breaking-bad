@@ -1,5 +1,6 @@
-import { authPage } from './images'
+import { authPage, dummyProfile } from './images'
 
 export {
-    authPage
+    authPage,
+    dummyProfile
 }

@@ -21,6 +21,10 @@ body {
   cursor: pointer;
 }
 
+.bold-text {
+  font-weight: bold;
+}
+
 /* Common placeholder bg */
 input {
   background: #a1a2a3;
@@ -30,7 +34,7 @@ input {
 .bg-image {
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: top center;
 }
 
 /* Card Black Overlay */

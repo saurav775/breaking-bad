@@ -36,7 +36,7 @@ const BreakingBad = () => {
 
   return (
     <div className="feed-container p-4">
-      <div className="select-container">
+      <div className="select-container pr-15">
         <select
           className="form-control cursor-pointer col-md-2 ml-auto"
           value={optionSelected}
