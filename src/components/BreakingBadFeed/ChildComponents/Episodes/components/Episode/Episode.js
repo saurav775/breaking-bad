@@ -19,7 +19,7 @@ const Episode = (props) => {
       }
     });
     setEpisodeCharacters(chars);
-  }, [episodeCharacters.length]);
+  }, [episodeCharacters.length, allCharacters, characters]);
 
   return (
     <div className="mt-5">
