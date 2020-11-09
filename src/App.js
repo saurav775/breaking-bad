@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Signup, Signin, ForgotPassword, VerifyCode, ResetPassword } from "./components";
+import { Signup, Signin, ForgotPassword, VerifyCode, ResetPassword, BreakingBadFeed } from "./components";
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 
@@ -21,6 +21,9 @@ const App = () => {
         </Route>
         <Route exact path="/reset-password">
           <ResetPassword title={"Reset Password"} id={"resetPassword"} />
+        </Route>
+        <Route exact path="/breaking-bad">
+          <BreakingBadFeed />
         </Route>
       </Switch>
     </Router>
