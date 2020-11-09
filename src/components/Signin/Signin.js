@@ -5,7 +5,7 @@ import { AuthHOC } from "../../HOC";
 import { handleValidation } from "../../helper";
 
 const Signin = (props) => {
-  const { handleInputChange } = props;
+  const { handleInputChange, history } = props;
 
   const [inputFields, setInputFields] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
@@ -25,6 +25,7 @@ const Signin = (props) => {
           e.password === inputFields.password
         ) {
           loginSuccess = true;
+          history.push('breaking-bad')
         }
       });
       if (!loginSuccess) {

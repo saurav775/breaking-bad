@@ -5,7 +5,7 @@ import { AuthHOC } from "../../HOC";
 import { handleValidation } from "../../helper";
 
 const Signup = (props) => {
-  const { handleInputChange } = props;
+  const { handleInputChange, history } = props;
   const [inputFields, setInputFields] = useState({
     email: "",
     password: "",
@@ -44,6 +44,7 @@ const Signup = (props) => {
               },
             ])
           );
+          history.push('breaking-bad')
         } 
       }
     }

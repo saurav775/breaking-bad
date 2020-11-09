@@ -5,7 +5,7 @@ import { AuthHOC } from "../../HOC";
 import { handleValidation } from "../../helper";
 
 const ResetPassword = (props) => {
-  const { handleInputChange, location } = props;
+  const { handleInputChange, location, history } = props;
 
   const [inputFields, setInputFields] = useState({
     password: "",
@@ -31,6 +31,7 @@ const ResetPassword = (props) => {
             }
         });
         localStorage.setItem('users', JSON.stringify(users))
+        history.push('/')
       }
     }
   };

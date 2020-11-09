@@ -16,7 +16,7 @@ const AuthHOC = (BaseComponent) => (props) => {
   const handleLinkClick = ({ clicked_from }) => {
     switch (id) {
       case "signup":
-        history.push("login");
+        history.push("/");
         break;
       case "signin":
         history.push(
@@ -24,7 +24,7 @@ const AuthHOC = (BaseComponent) => (props) => {
         );
         break;
       case "forgotPassword":
-        history.push(clicked_from === "signup" ? "register" : "login");
+        history.push(clicked_from === "signup" ? "register" : "/");
         break;
       default:
         break;

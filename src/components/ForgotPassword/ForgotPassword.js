@@ -5,17 +5,21 @@ import { v4 as uuidv4 } from "uuid";
 import emailjs from "emailjs-com";
 import { AuthHOC } from "../../HOC";
 import { handleValidation } from "../../helper";
+import { Loader } from "../../commonComponent";
 
 const ForgotPassword = (props) => {
   const { handleInputChange, history } = props;
 
   const [inputFields, setInputFields] = useState({ email: "" });
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const sendCode = () => {
+    setLoading(true);
     const checkErrors = handleValidation(inputFields, "forgotPassword");
     if (checkErrors) {
       setErrors(checkErrors);
+      setLoading(false);
     } else {
       setErrors({});
       const users = JSON.parse(localStorage.getItem("users"));
@@ -28,8 +32,9 @@ const ForgotPassword = (props) => {
       });
       if (!userExist) {
         setErrors({ invalid_user: "Invalid user" });
+        setLoading(false);
       } else {
-        const uuid = uuidv4()
+        const uuid = uuidv4();
         const templateParams = {
           to_name: inputFields.email,
           from_name: "breaking bad",
@@ -55,6 +60,7 @@ const ForgotPassword = (props) => {
                   }
                 });
                 localStorage.setItem("users", JSON.stringify(users));
+                setLoading(false);
                 history.push({
                   pathname: "verify-code",
                   state: { ...currentUser },
@@ -62,7 +68,8 @@ const ForgotPassword = (props) => {
               }
             },
             (error) => {
-              setErrors({ 'mail_failed': error })
+              setErrors({ mail_failed: error });
+              setLoading(false);
             }
           );
       }
@@ -70,10 +77,10 @@ const ForgotPassword = (props) => {
   };
 
   return (
-    <div className="d-flex flex-column">
+    <div className="d-flex flex-column align-items-center">
       <input
         type="email"
-        className="form-control full-width mb-4"
+        className="form-control full-width mb-2"
         value={inputFields.email}
         onChange={(e) =>
           setInputFields({
@@ -97,13 +104,19 @@ const ForgotPassword = (props) => {
           {errors["mail_failed"]}
         </span>
       )}
-      <button
-        type="button"
-        className="btn btn-primary full-width"
-        onClick={sendCode}
-      >
-        Send Code
-      </button>
+      {loading ? (
+        <div className="mt-4">
+          <Loader />
+        </div>
+      ) : (
+        <button
+          type="button"
+          className="btn btn-primary full-width mt-4"
+          onClick={sendCode}
+        >
+          Send Code
+        </button>
+      )}
     </div>
   );
 };

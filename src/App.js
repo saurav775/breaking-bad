@@ -10,7 +10,7 @@ const App = () => {
         <Route exact path="/register">
           <Signup title={"Create an account"} id={"signup"} />
         </Route>
-        <Route exact path="/login">
+        <Route exact path="/">
           <Signin title={"Welcome to Breaking Bad"} id={"signin"} />
         </Route>
         <Route exact path="/forgot-password">
