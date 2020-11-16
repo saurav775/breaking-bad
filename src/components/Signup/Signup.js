@@ -25,27 +25,39 @@ const Signup = (props) => {
         setErrors({});
         // checking if user already exists
         const users = JSON.parse(localStorage.getItem("users"));
-        let userExist = false
-        users && users.length > 0 && users.forEach((e) => {
-          if (e.email === inputFields.email) {
-            setErrors({ user_exist: "User exist... please login" });
-            userExist = true
-          }
-        });
+        let userExist = false;
+        users &&
+          users.length > 0 &&
+          users.forEach((e) => {
+            if (e.email === inputFields.email) {
+              setErrors({ user_exist: "User exist... please login" });
+              userExist = true;
+            }
+          });
         // setting item in local storage
-        if(!userExist) {
-          localStorage.setItem(
-            "users",
-            JSON.stringify([
-              ...users,
-              {
-                email: inputFields.email,
-                password: inputFields.password,
-              },
-            ])
-          );
-          history.push('breaking-bad')
-        } 
+        if (!userExist) {
+          users && users.length > 0
+            ? localStorage.setItem(
+                "users",
+                JSON.stringify([
+                  ...users,
+                  {
+                    email: inputFields.email,
+                    password: inputFields.password,
+                  },
+                ])
+              )
+            : localStorage.setItem(
+                "users",
+                JSON.stringify([
+                  {
+                    email: inputFields.email,
+                    password: inputFields.password,
+                  },
+                ])
+              );
+          history.push("breaking-bad");
+        }
       }
     }
   };
