@@ -24,7 +24,7 @@ const ForgotPassword = (props) => {
       setErrors({});
       const users = JSON.parse(localStorage.getItem("users"));
       let userExist = false;
-      users.forEach((e) => {
+      users && users.length && users.forEach((e) => {
         // checking for user in local storage
         if (e.email === inputFields.email) {
           userExist = true;

@@ -26,7 +26,7 @@ const Signup = (props) => {
         // checking if user already exists
         const users = JSON.parse(localStorage.getItem("users"));
         let userExist = false
-        users.length > 0 && users.forEach((e) => {
+        users && users.length > 0 && users.forEach((e) => {
           if (e.email === inputFields.email) {
             setErrors({ user_exist: "User exist... please login" });
             userExist = true

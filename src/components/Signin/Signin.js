@@ -18,7 +18,7 @@ const Signin = (props) => {
       setErrors({});
       const users = JSON.parse(localStorage.getItem("users"));
       let loginSuccess = false;
-      users.forEach((e) => {
+      users && users.length > 0 && users.forEach((e) => {
         // checking for user in local storage
         if (
           e.email === inputFields.email &&
